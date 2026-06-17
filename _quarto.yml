@@ -8,8 +8,8 @@ execute:
   message: false
 
 book:
-  title: "论文图1复现 — 细菌组成与多样性分析"
-  author: "D2RS 2026 Spring"
+  title: "早期多重微量营养素缺乏对小鼠肠道菌群的影响 — Figure 1 复现"
+  author: "好好学习 天天向上小组"
   date: "2026/5/23"
   chapters:
     - index.qmd
@@ -24,6 +24,3 @@ format:
     theme:
       - cosmo
       - brand
-
-
-
