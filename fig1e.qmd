@@ -1,0 +1,52 @@
+---
+title: "Fig 1e — Bray-Curtis Beta 多样性 NMDS 排序图"
+---
+
+# Beta 多样性分析
+
+## 目的
+
+通过 NMDS（非度量多维尺度分析）展示不同处理组之间肠道菌群群落结构的差异。Beta 多样性衡量的是样本之间菌群组成的差异程度。
+
+## 方法
+
+- **距离度量**：Bray-Curtis 距离，适用于丰度数据
+- **排序方法**：NMDS，将高维群落数据降维到二维空间
+- **可视化**：按分组着色，添加 95% 置信椭圆
+
+## 预期结果
+
+如果 LM 处理对菌群结构有显著影响，我们预期 LM Day 28 组与 CON Day 28 组在 NMDS 图上呈现分离趋势。
+
+```{r}
+#| warning: false
+#| message: false
+#| fig-cap: "Bray-Curtis Beta Diversity NMDS Plot"
+#| fig-width: 7
+#| fig-height: 5
+
+library(tidyverse)
+library(ggpubr)
+library(readxl)
+
+# 读取表格数据
+mds_data <- read_excel("Source Data Fig 1.xlsx")
+
+# 设置分组因子（按实验设计顺序）
+mds_data$Group = factor(mds_data$Group,
+                        levels = c('CON Day 0', 'LM Day 0', 'CON Day 28', 'LM Day 28'))
+
+# 绘制 NMDS 图
+p = ggplot(mds_data, aes(x = MDS1, y = MDS2, color = Group)) +
+    geom_point(size = 2) +
+    stat_ellipse(linewidth = 1) +
+    theme_classic(base_size = 20) +
+    xlab('NMDS 1') + ylab('NMDS 2') +
+    ggtitle('Bray-Curtis Beta Diversity')
+
+print(p)
+```
+
+## 结果解读
+
+NMDS 图中，各组的置信椭圆反映了组内样本的聚集程度。若处理组与对照组的椭圆不重叠或重叠较少，说明饮食处理显著改变了菌群的群落结构。

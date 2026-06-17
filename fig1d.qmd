@@ -1,38 +1,56 @@
+---
+title: "Fig 1d — Shannon 多样性指数箱线图"
+---
+
+# Alpha 多样性分析
+
+## 目的
+
+比较不同处理组在各时间点的肠道菌群 Alpha 多样性（Shannon 指数），评估饮食处理对菌群多样性的影响。
+
+## 方法
+
+- **多样性指数**：Shannon 指数，同时考虑物种丰富度和均匀度
+- **统计检验**：Wilcoxon 秩和检验
+- **可视化**：箱线图 + 散点，按时间点分面
+
+```{r}
+#| warning: false
+#| message: false
+#| fig-cap: "Shannon Alpha Diversity"
+#| fig-width: 12
+#| fig-height: 8
+
 suppressWarnings(library(tidyverse))
 suppressWarnings(library(readxl))
 
-# 1. 读取原始数据
+# 读取数据
 df <- read_excel("fig1d.xlsx", sheet = "Sheet1")
 
-# 2. 数据处理：固定分组顺序
+# 数据处理：固定分组顺序
 df <- df %>%
   mutate(
     Day = factor(Day, levels = c("Day 0", "Day 28")),
     Diet = factor(Diet, levels = c("CON", "LM"))
   )
 
-# 3. 绘图：箱线图白色填充+散点彩色，和原图完全一致
+# 绘图：箱线图 + 散点
 ggplot(df, aes(x = Diet, y = shannon)) +
-  # 箱线图：白色填充，黑色边框，中位数线加粗
   geom_boxplot(
-    fill = "white", 
-    color = "black", 
-    width = 0.6, 
+    fill = "white",
+    color = "black",
+    width = 0.6,
     outlier.shape = NA,
     linewidth = 1
   ) +
-  # 散点图：按Day分组上色，和原图颜色一致
   geom_jitter(
     aes(color = Day),
-    width = 0.2, 
-    size = 3, 
+    width = 0.2,
+    size = 3,
     stroke = 0.5
   ) +
-  # 分面：Day0/Day28横向排列
   facet_wrap(~Day, nrow = 1, ncol = 2, scales = "fixed") +
-  # 散点颜色：Day0红色，Day28蓝绿色
   scale_color_manual(values = c("Day 0" = "#E67373", "Day 28" = "#40B8A0")) +
-  # Y轴设置：和原图范围/刻度一致
   scale_y_continuous(
     name = "Shannon diversity",
     limits = c(2, 5.5),
@@ -40,7 +58,6 @@ ggplot(df, aes(x = Diet, y = shannon)) +
     expand = c(0, 0)
   ) +
   scale_x_discrete(name = "") +
-  # 显著性文字：硬编码，避免乱码
   annotate(
     "text",
     x = 1.5, y = 5.2,
@@ -55,7 +72,6 @@ ggplot(df, aes(x = Diet, y = shannon)) +
     size = 5,
     hjust = 0.5
   ) +
-  # 主题：隐藏图例，和原图一致
   theme_classic(base_size = 18) +
   theme(
     legend.position = "none",
@@ -64,12 +80,11 @@ ggplot(df, aes(x = Diet, y = shannon)) +
     axis.title.y = element_text(size = 18, margin = margin(r = 10)),
     axis.text = element_text(size = 16)
   )
+```
 
-# 保存高清图
-ggsave(
-  "Fig1d_最终复刻.png",
-  height = 8,
-  width = 12,
-  dpi = 600,
-  bg = "white"
-)
+## 结果解读
+
+- **Day 0**（左图）：P = 0.77，说明实验开始前 CON 和 LM 两组的 Shannon 多样性无显著差异，基线可比
+- **Day 28**（右图）：P = 0.002，说明经过 28 天处理后，两组的 Shannon 多样性存在显著差异
+- Shannon 指数越高，表示菌群多样性越高（物种越丰富且分布越均匀）
+- 结果提示 LM 饮食处理可能改变了肠道菌群的多样性水平

@@ -1,0 +1,39 @@
+---
+title: "论文 Figure 1 复现 — 肠道菌群组成与多样性分析"
+author: "D2RS 2026 Spring"
+date: "2026/5/23"
+---
+
+# 项目简介
+
+本项目复现论文中 Figure 1 的全部子图，系统展示不同饮食处理（CON 对照组 vs LM 实验组）在不同时间点（Day 0 和 Day 28）对小鼠肠道菌群的影响。
+
+## 复现内容
+
+| 子图 | 分析内容 | 方法 |
+|------|---------|------|
+| Fig 1c | 细菌门水平组成堆叠图 | 堆叠柱状图 + 分面 |
+| Fig 1d | Shannon 多样性指数 | 箱线图 + Wilcoxon 检验 |
+| Fig 1e | Bray-Curtis Beta 多样性 | NMDS 排序图 + 置信椭圆 |
+
+## 实验设计
+
+- **分组**：CON（对照饮食）vs LM（实验饮食）
+- **时间点**：Day 0（基线）和 Day 28（处理后）
+- **样本**：每组多个小鼠个体
+- **测序**：16S rRNA 基因测序
+
+## 数据来源
+
+分析数据来源于论文附件的 Excel 文件：
+
+- `fig1c.xlsx` — Fig 1c 门水平丰度数据
+- `fig1d.xlsx` — Fig 1d Shannon 多样性数据
+- `Source Data Fig 1.xlsx` — Fig 1e NMDS 坐标数据
+
+## 分析工具
+
+- R 语言 + `tidyverse`（数据处理）
+- `ggplot2`（可视化）
+- `readxl`（Excel 读取）
+- `ggpubr`（统计检验标注）

@@ -1,18 +1,41 @@
-# 1. 屏蔽版本警告（解决环境差异）
+---
+title: "Fig 1c — 细菌门水平组成堆叠图"
+---
+
+# 细菌门水平组成分析
+
+## 目的
+
+展示不同处理组在各时间点的肠道菌群门水平（Phylum）组成，直观比较各组间的优势菌门及其丰度变化。
+
+## 方法
+
+- **分类水平**：门（Phylum）
+- **主要菌门**：拟杆菌门（Bacteroidetes）、厚壁菌门（Firmicutes）、变形菌门（Proteobacteria）、疣微菌门（Verrucomicrobia）
+- **可视化**：堆叠柱状图，按分组分面
+
+```{r}
+#| warning: false
+#| message: false
+#| fig-cap: "Bacterial Composition at Phylum Level"
+#| fig-width: 10
+#| fig-height: 8
+
 suppressWarnings(library(tidyverse))
 suppressWarnings(library(readxl))
 
-# 2. 读取数据（确保路径正确，和论文原代码一致）
+# 读取数据
 df <- read_excel("fig1c.xlsx", sheet = "Sheet1")
 
-# 3. 论文原代码的核心数据处理（完全不动，只加了drop_na解决警告）
+# 数据处理：从样本名中提取小鼠编号
 df$Mouse <- sapply(df$Sample, function(x) {
   str_split(x, "_")[[1]][2]
 })
 df$Group <- paste(df$Diet, df$Day)
-df$Phylum <- factor(df$Phylum, levels = c("Bacteroidetes", "Firmicutes", "Proteobacteria", "Verrucomicrobia", "Unknown/Other"))
+df$Phylum <- factor(df$Phylum, levels = c("Bacteroidetes", "Firmicutes",
+  "Proteobacteria", "Verrucomicrobia", "Unknown/Other"))
 
-# 4. 论文原代码的绘图逻辑（只加了na.rm=TRUE和分面顺序）
+# 绘图：堆叠柱状图 + 分面
 ggplot(df, aes(Mouse, Abundance, fill = Phylum)) +
   geom_bar(stat = "identity", position = "stack", color = "black", na.rm = TRUE) +
   theme_classic(base_size = 18) +
@@ -22,10 +45,15 @@ ggplot(df, aes(Mouse, Abundance, fill = Phylum)) +
     legend.position = "right",
     legend.text = element_text(size = 16)
   ) +
-  # 强制指定分面顺序，和论文原图一致
-  facet_wrap(~factor(Group, levels = c("CON Day 0", "LM Day 0", "CON Day 28", "LM Day 28")), nrow = 2) +
-  ylab("Rel. Abundance") +
+  facet_wrap(~factor(Group, levels = c("CON Day 0", "LM Day 0",
+    "CON Day 28", "LM Day 28")), nrow = 2) +
+  ylab("Relative Abundance") +
   xlab("Mouse")
+```
 
-# 保存图片（去掉%符号，避免报错）
-ggsave("Fig1c_paper_code.png", height = 8, width = 10, dpi = 300)
+## 结果解读
+
+- 每个柱子代表一只小鼠，柱高为相对丰度（100%）
+- 不同颜色代表不同菌门，可直观比较各组间的优势菌门
+- 关注 Day 0 → Day 28 期间，CON 组和 LM 组的菌门组成变化差异
+- 拟杆菌门和厚壁菌门通常是肠道中的优势菌门，其比例变化常与饮食干预相关
