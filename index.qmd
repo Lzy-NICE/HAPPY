@@ -1,12 +1,16 @@
 ---
-title: "论文 Figure 1 复现 — 肠道菌群组成与多样性分析"
-author: "D2RS 2026 Spring"
-date: "2026/5/23"
+title: "早期多重微量营养素缺乏对小鼠肠道菌群的影响 — Figure 1 复现"
 ---
 
 # 项目简介
 
-本项目复现论文中 Figure 1 的全部子图，系统展示不同饮食处理（CON 对照组 vs LM 实验组）在不同时间点（Day 0 和 Day 28）对小鼠肠道菌群的影响。
+本项目复现发表于 *Nature Microbiology* 的论文 Figure 1，系统展示不同饮食处理（CON 对照组 vs LM 实验组）在不同时间点（Day 0 和 Day 28）对小鼠肠道菌群的影响。
+
+## 论文信息
+
+- **题目**: Multiple micronutrient deficiencies in early life cause multi-kingdom alterations in the gut microbiome and intrinsic antibiotic resistance genes in mice
+- **期刊**: Nature Microbiology
+- **DOI**: [10.1038/s41564-023-01519-3](https://doi.org/10.1038/s41564-023-01519-3)
 
 ## 复现内容
 
@@ -37,3 +41,13 @@ date: "2026/5/23"
 - `ggplot2`（可视化）
 - `readxl`（Excel 读取）
 - `ggpubr`（统计检验标注）
+
+## 小组成员
+
+| 姓名 | 学号 | GitHub | 负责内容 |
+|------|------|--------|---------|
+| 刘卓益 | 2025303110003 | [@Lzy-NICE](https://github.com/Lzy-NICE) | Fig 1b（组长） |
+| 李俊杰 | 2025303120105 | [@lijj2k](https://github.com/lijj2k) | Fig 1c |
+| 朱烁龙 | 2025303120103 | [@DragonBron23](https://github.com/DragonBron23) | Fig 1d |
+| 高心灵 | 2025303120157 | [@gaoxinling](https://github.com/gaoxinling) | Fig 1e |
+| 章靖 | 2025303110106 | [@zh-ang-jing](https://github.com/zh-ang-jing) | Fig 1f |

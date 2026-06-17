@@ -2,7 +2,7 @@
 title: "Fig 1d — Shannon 多样性指数箱线图"
 ---
 
-# Alpha 多样性分析
+# Alpha 多样性分析 {.unnumbered}
 
 ## 目的
 

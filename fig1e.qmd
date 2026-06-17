@@ -2,7 +2,7 @@
 title: "Fig 1e — Bray-Curtis Beta 多样性 NMDS 排序图"
 ---
 
-# Beta 多样性分析
+# Beta 多样性分析 {.unnumbered}
 
 ## 目的
 
