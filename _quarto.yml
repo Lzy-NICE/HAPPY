@@ -1,15 +1,21 @@
 project:
   type: book
+  output-dir: _book
+
+execute:
+  echo: true
+  warning: false
+  message: false
 
 book:
-  title: "happy"
-  author: "Norah Jones"
+  title: "论文图1复现 — 细菌组成与多样性分析"
+  author: "D2RS 2026 Spring"
   date: "2026/5/23"
   chapters:
     - index.qmd
-    - intro.qmd
-    - summary.qmd
-    - references.qmd
+    - fig1e.qmd
+    - fig1c.qmd
+    - fig1d.qmd
 
 bibliography: references.bib
 
@@ -18,8 +24,6 @@ format:
     theme:
       - cosmo
       - brand
-  pdf:
-    documentclass: scrreprt
 
 
 
